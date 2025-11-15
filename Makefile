@@ -6,13 +6,15 @@
 #    By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/15 20:59:12 by asaracut          #+#    #+#              #
-#    Updated: 2025/11/15 21:18:52 by asaracut         ###   ########.fr        #
+#    Updated: 2025/11/15 21:51:32 by asaracut         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program configuration
 NAME		= cube3d
-SRCS		= src/main.c
+SRCS		= src/main.c\
+			  src/exit_free/error_exit.c\
+			  src/utils/utils_lib.c
 OBJS		= $(SRCS:src/%.c=.obj/%.o)
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g3
@@ -33,10 +35,8 @@ BOLD		= \033[1m
 TOTAL_FILES	= $(words $(SRCS))
 COMPILED	= 0
 
-all: $(NAME)
-
-$(NAME): header $(OBJS)
-	@if [ -f $(NAME) ] && [ ! $(OBJS) -nt $(NAME) ]; then \
+all: header
+	@if [ -f $(NAME) ] && [ $(NAME) -nt $(firstword $(SRCS)) ]; then \
 		echo "$(GREEN)$(BOLD)"; \
 		echo "╔══════════════════════════════════════════════════════════════╗"; \
 		echo "║                   ✅ ALREADY UP TO DATE! ✅                  ║"; \
@@ -44,15 +44,18 @@ $(NAME): header $(OBJS)
 		echo "╚══════════════════════════════════════════════════════════════╝"; \
 		echo "$(RESET)"; \
 	else \
-		echo "$(GREEN)🔗 Linking executable $(NAME)...$(RESET)"; \
-		$(CC) $(CFLAGS) -o $(NAME) $(OBJS); \
-		echo "$(GREEN)$(BOLD)"; \
-		echo "╔══════════════════════════════════════════════════════════════╗"; \
-		echo "║                   ✅ COMPILATION SUCCESS! ✅                 ║"; \
-		echo "║                     🎉 Cube3D is ready! 🎉                   ║"; \
-		echo "╚══════════════════════════════════════════════════════════════╝"; \
-		echo "$(RESET)"; \
+		$(MAKE) --no-print-directory $(NAME); \
 	fi
+
+$(NAME): $(OBJS)
+	@echo "$(GREEN)🔗 Linking executable $(NAME)...$(RESET)"
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	@echo "$(GREEN)$(BOLD)"
+	@echo "╔══════════════════════════════════════════════════════════════╗"
+	@echo "║                   ✅ COMPILATION SUCCESS! ✅                 ║"
+	@echo "║                     🎉 Cube3D is ready! 🎉                   ║"
+	@echo "╚══════════════════════════════════════════════════════════════╝"
+	@echo "$(RESET)"
 
 header:
 	@echo "$(CYAN)$(BOLD)"
@@ -72,9 +75,8 @@ header:
 .obj/%.o: src/%.c | .obj
 	@$(eval COMPILED=$(shell echo $$(($(COMPILED)+1))))
 	@echo "$(YELLOW)🔨 Compiling [$(COMPILED)/$(TOTAL_FILES)] $<...$(RESET)"
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-
 
 clean:
 	@echo "$(RED)🧹 Cleaning object files...$(RESET)"
