@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 20:58:19 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/15 23:17:43 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/11/22 02:33:07 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,17 @@ typedef struct s_cub
     t_texture textures[4]; // NO SO WE EA*/
 } t_cub;
 
+/*--- parsing.c ---*/
+int parsing(char *map, t_cub *cub);
+
 /*--- error_exit.c ---*/
 void	exit_error(char *message);
 
 /*--- utils_lib.c ---*/
 size_t	ft_strlen(const char *s);
+void	*ft_memset(void *b, int c, size_t len);
+int		ft_strcmp(const char *s1, const char *s2);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+char	*get_next_line(int fd);
 
 #endif

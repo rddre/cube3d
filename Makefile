@@ -6,15 +6,17 @@
 #    By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/15 20:59:12 by asaracut          #+#    #+#              #
-#    Updated: 2025/11/15 21:51:32 by asaracut         ###   ########.fr        #
+#    Updated: 2025/11/22 02:30:20 by asaracut         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program configuration
 NAME		= cube3d
 SRCS		= src/main.c\
+			  src/parsing/parsing.c\
 			  src/exit_free/error_exit.c\
-			  src/utils/utils_lib.c
+			  src/utils/utils_lib.c\
+			  src/utils/get_next_line.c
 OBJS		= $(SRCS:src/%.c=.obj/%.o)
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g3
