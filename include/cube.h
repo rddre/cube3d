@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 20:58:19 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/22 02:33:07 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/11/23 03:24:03 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,16 @@ typedef struct s_map
     char **map;         // La carte en 2D, chaque ligne = une rangée
     int width_map;          // Largeur de la carte
     int height_map;         // Hauteur de la carte
-    char *north_texture;   // Chemin de la texture Nord
-    char *south_texture;   // Chemin de la texture Sud
-    char *west_texture;   // Chemin de la texture Ouest
-    char *east_texture;   // Chemin de la texture Est
+    char *no_texture;   // Chemin de la texture Nord
+    char *so_texture;   // Chemin de la texture Sud
+    char *we_texture;   // Chemin de la texture Ouest
+    char *ea_texture;   // Chemin de la texture Est
     int floor_color;    // Couleur du sol (RGB combiné en int)
     int sky_color;  // Couleur du plafond (RGB combiné en int)
     int player_x;       // Position X du joueur (float si tu veux précision)
     int player_y;       // Position Y du joueur
     char player_dir;    // Orientation du joueur ('N','S','E','W')
+	int parsing_step; // Indicateur de l'étape de parsing en cours
 } t_map;
 /*
 typedef struct s_player
@@ -77,14 +78,21 @@ typedef struct s_cub
 
 /*--- parsing.c ---*/
 int parsing(char *map, t_cub *cub);
+int empty_line(char *line);
+int skip_spaces(char **line);
+int stock_info(char *line, t_cub *cub);
+int stock_map(char *line, t_cub *cub);
+int stock_texture(char *line, t_cub *cub);
 
 /*--- error_exit.c ---*/
-void	exit_error(char *message);
+void	exit_error(char *message, int code);
+void	free_textures(t_cub *cub);
 
 /*--- utils_lib.c ---*/
 size_t	ft_strlen(const char *s);
 void	*ft_memset(void *b, int c, size_t len);
 int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*get_next_line(int fd);
 

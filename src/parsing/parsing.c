@@ -6,16 +6,42 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 21:52:47 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/22 02:58:20 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/11/23 02:55:22 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cube.h"
-
+int ligne = 1;
 int verifi_line(char *line, t_cub *cub)
 {
 	(void)cub;
-	printf("Read line: %s", line);
+	if (cub->map.parsing_step < 6 && empty_line(line))
+	{
+		printf("ligne %d vide\n", ligne++);
+		return (0);
+	}
+	else if (cub->map.parsing_step == 6) 
+	{
+		if (!empty_line(line))
+			cub->map.parsing_step++;
+		else
+		{
+			printf("ligne %d vide\n", ligne++);
+			return (0);
+		}
+	}
+
+	if (cub->map.parsing_step < 6)
+	{
+		printf("ligne %d parsing map etape %d: %s", ligne++, cub->map.parsing_step, line);
+		stock_info(line, cub);
+		cub->map.parsing_step++;
+	}
+	else
+	{
+		printf("ligne %d parsing map etape %d: %s", ligne++, cub->map.parsing_step, line);
+		stock_map(line, cub);
+	}
 	return (0);
 }
 
@@ -43,12 +69,13 @@ int parsing(char *map, t_cub *cub)
 	(void)cub;
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
-		return (exit_error("Could not open map file"), 1);
+		exit_error("Could not open map file", 1); // a rajouter free si besoin
 
 	if (read_map(fd, cub) != 0)
-		return (exit_error("Could not read map file"), 1);
+		exit_error("Could not read map file", 1); // a rajouter free si besoin
 
 	close(fd);
+
 	write(1, "Parsing successful\n", 20);
 	return (0);
 }

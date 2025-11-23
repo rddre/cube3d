@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_exit.c                                       :+:      :+:    :+:   */
+/*   stock_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/15 21:41:56 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/23 02:46:10 by asaracut         ###   ########.fr       */
+/*   Created: 2025/11/23 02:18:07 by asaracut          #+#    #+#             */
+/*   Updated: 2025/11/23 02:55:53 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cube.h"
 
-void	exit_error(char *message, int code)
+int stock_map(char *line, t_cub *cub)
 {
-	write(2, "Error\n", 6);
-	write(2, message, ft_strlen(message));
-	write(2, "\n", 1);
-	exit(code);
+	// A implémenter : stocker les informations de la carte dans cub->map
+	(void)line;
+	(void)cub;
+	return (0);
 }

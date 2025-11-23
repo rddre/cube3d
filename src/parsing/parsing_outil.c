@@ -1,21 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_exit.c                                       :+:      :+:    :+:   */
+/*   parsing_outil.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/15 21:41:56 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/23 02:46:10 by asaracut         ###   ########.fr       */
+/*   Created: 2025/11/22 23:19:20 by asaracut          #+#    #+#             */
+/*   Updated: 2025/11/23 03:17:53 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cube.h"
 
-void	exit_error(char *message, int code)
+int empty_line(char *line)
 {
-	write(2, "Error\n", 6);
-	write(2, message, ft_strlen(message));
-	write(2, "\n", 1);
-	exit(code);
+	size_t i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+			return (0);
+		i++;
+	}
+	return (1);
 }
+
+int skip_spaces(char **line)
+{
+	size_t i;
+
+	i = 0;
+	while ((*line)[i] == ' ' || (*line)[i] == '\t')
+		i++;
+	*line += i;
+	return (0);
+}
+
