@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 20:58:16 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/23 03:29:33 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/11/24 00:17:32 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,17 @@ void print_info(t_cub *cub)
 	printf("Player Direction: %c\n", cub->map.player_dir);
 }
 
+void print_map(t_cub *cub)
+{
+	int i;
+
+	printf("Map:\n");
+	for (i = 0; i < cub->map.height_map; i++)
+	{
+		printf("%s", cub->map.map[i]);
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_cub cub;
@@ -60,7 +71,12 @@ int	main(int ac, char **av)
 
 	if (parsing(av[1], &cub)) // parsing renvoie jamais d'erreur
 		return (write(2, "Parsing failed\n", 15), 1); // a effacer
+
 	printf("\n\n\n");
 	print_info(&cub);
+
+	printf("\n\n");
+	print_map(&cub);
+	printf("\n\n");
 	return (0);
 }

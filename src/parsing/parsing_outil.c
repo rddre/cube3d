@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 23:19:20 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/23 03:17:53 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/11/24 00:01:49 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,3 +37,10 @@ int skip_spaces(char **line)
 	return (0);
 }
 
+size_t line_len_no_nl(char *line)
+{
+    size_t i = 0;
+    while (line[i] && line[i] != '\n')
+        i++;
+    return i;
+}

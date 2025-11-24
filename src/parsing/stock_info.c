@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 02:17:47 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/23 03:36:38 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/11/23 23:41:33 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,17 @@ void stock_info_loop(char **line, t_cub *cub, char *direction)
 	skip_spaces(line);
 	stock_texture(*line, cub);
 }
+void stock_info_loop_color(char **line, t_cub *cub, char *color_type)
+{
+	skip_spaces(line);
+	if (ft_strncmp(*line, color_type, 2) != 0)
+	{
+		free_textures(cub);
+		exit_error("Wrong floor color format", 1);
+	}
+	*line += 2;
+	stock_color(*line, cub);
+}
 
 int stock_info(char *line, t_cub *cub)
 {
@@ -36,12 +47,8 @@ int stock_info(char *line, t_cub *cub)
 	else if (cub->map.parsing_step == 3)
 		stock_info_loop(&line, cub, "EA ");
 	else if (cub->map.parsing_step == 4)
-	{
-		return 0;// A implémenter : stocker la couleur du sol dans cub->map.floor_color
-	}
+		stock_info_loop_color(&line, cub, "F ");
 	else if (cub->map.parsing_step == 5)
-	{
-		return 0;// A implémenter : stocker la couleur du plafond dans cub->map.sky_color
-	}
+		stock_info_loop_color(&line, cub, "C ");
 	return (0);
 }
