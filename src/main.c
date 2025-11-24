@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 20:58:16 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/24 00:17:32 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/11/25 00:09:52 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void print_map(t_cub *cub)
 	printf("Map:\n");
 	for (i = 0; i < cub->map.height_map; i++)
 	{
-		printf("%s", cub->map.map[i]);
+		printf("%s\n", cub->map.map[i]);
 	}
 }
 
@@ -78,5 +78,7 @@ int	main(int ac, char **av)
 	printf("\n\n");
 	print_map(&cub);
 	printf("\n\n");
+	free_all(&cub);
+
 	return (0);
 }

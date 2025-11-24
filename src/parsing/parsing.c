@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 21:52:47 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/23 02:55:22 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/11/24 22:01:21 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 int ligne = 1;
 int verifi_line(char *line, t_cub *cub)
 {
-	(void)cub;
 	if (cub->map.parsing_step < 6 && empty_line(line))
 	{
 		printf("ligne %d vide\n", ligne++);
@@ -49,7 +48,6 @@ int read_map(int fd, t_cub *cub)
 {
 	char *line;
 
-	(void)cub;
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		if (verifi_line(line, cub) != 0)
@@ -66,16 +64,16 @@ int parsing(char *map, t_cub *cub)
 {
 	int fd;
 
-	(void)cub;
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
 		exit_error("Could not open map file", 1); // a rajouter free si besoin
 
 	if (read_map(fd, cub) != 0)
-		exit_error("Could not read map file", 1); // a rajouter free si besoin
+		exit_error("Could not read map file", 1);
 
 	close(fd);
-
+	parse_map(cub);
+	
 	write(1, "Parsing successful\n", 20);
 	return (0);
 }

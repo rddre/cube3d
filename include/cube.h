@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 20:58:19 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/24 00:14:34 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/11/25 00:09:46 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_map
     int height_map;         // Hauteur de la carte
 
 	int parsing_step; // Indicateur de l'étape de parsing en cours
+	int nombre_player; // Nombre de joueurs trouvés dans la carte
 } t_map;
 /*
 typedef struct s_player
@@ -91,11 +92,14 @@ int		stock_info(char *line, t_cub *cub);
 int		stock_map(char *line, t_cub *cub);
 int		stock_texture(char *line, t_cub *cub);
 int		stock_color(char *line, t_cub *cub);
+void	parse_map(t_cub *cub);
 
 /*--- error_exit.c ---*/
 void	exit_error(char *message, int code);
 void	free_textures(t_cub *cub);
 void	free_texture_exit(t_cub *cub, char *message);
+void	free_map(t_cub *cub);
+void	free_all(t_cub *cub);
 
 /*--- utils_lib.c ---*/
 size_t	ft_strlen(const char *s);
