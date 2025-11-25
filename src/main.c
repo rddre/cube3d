@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 20:58:16 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/25 00:09:52 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/11/25 03:47:35 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,36 +28,6 @@ int	check_extension(char *map_name)
 	return (1);
 }
 
-void init_cub(t_cub *cub)
-{
-	ft_memset(cub, 0, sizeof(t_cub));
-}
-
-void print_info(t_cub *cub)
-{
-	printf("NO Texture: %s\n", cub->map.no_texture);
-	printf("SO Texture: %s\n", cub->map.so_texture);
-	printf("WE Texture: %s\n", cub->map.we_texture);
-	printf("EA Texture: %s\n", cub->map.ea_texture);
-	printf("Floor Color: %d\n", cub->map.floor_color);
-	printf("Sky Color: %d\n", cub->map.sky_color);
-	printf("Map Width: %d\n", cub->map.width_map);
-	printf("Map Height: %d\n", cub->map.height_map);
-	printf("Player Position: (%d, %d)\n", cub->map.player_x, cub->map.player_y);
-	printf("Player Direction: %c\n", cub->map.player_dir);
-}
-
-void print_map(t_cub *cub)
-{
-	int i;
-
-	printf("Map:\n");
-	for (i = 0; i < cub->map.height_map; i++)
-	{
-		printf("%s\n", cub->map.map[i]);
-	}
-}
-
 int	main(int ac, char **av)
 {
 	t_cub cub;
@@ -72,13 +42,44 @@ int	main(int ac, char **av)
 	if (parsing(av[1], &cub)) // parsing renvoie jamais d'erreur
 		return (write(2, "Parsing failed\n", 15), 1); // a effacer
 
-	printf("\n\n\n");
-	print_info(&cub);
+	init_player(&cub, cub.map.player_dir);
 
-	printf("\n\n");
-	print_map(&cub);
-	printf("\n\n");
+	if (start_game() != 0)
+		write(2, "Failed to start game\n", 21);
+
 	free_all(&cub);
 
 	return (0);
 }
+
+/*
+void print_map(t_cub *cub)
+{
+	int i;
+
+	printf("Map:\n");
+	for (i = 0; i < cub->map.height_map; i++)
+	{
+		printf("%s\n", cub->map.map[i]);
+	}
+}
+void print_info(t_cub *cub)
+{
+	printf("NO Texture: %s\n", cub->map.no_texture);
+	printf("SO Texture: %s\n", cub->map.so_texture);
+	printf("WE Texture: %s\n", cub->map.we_texture);
+	printf("EA Texture: %s\n", cub->map.ea_texture);
+	printf("Floor Color: %d\n", cub->map.floor_color);
+	printf("Sky Color: %d\n", cub->map.sky_color);
+	printf("Map Width: %d\n", cub->map.width_map);
+	printf("Map Height: %d\n", cub->map.height_map);
+	printf("Player Position: (%d, %d)\n", cub->map.player_x, cub->map.player_y);
+	printf("Player Direction: %c\n", cub->map.player_dir);
+
+	//player info
+	printf("\nPlayer Info:\n");
+	printf("Position: (%f, %f)\n", cub->player.x, cub->player.y);
+	printf("Direction: (%f, %f)\n", cub->player.dir_x, cub->player.dir_y);
+	printf("Plane: (%f, %f)\n", cub->player.plane_x, cub->player.plane_y);
+}
+*/

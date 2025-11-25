@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 20:58:19 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/25 00:09:46 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/11/25 04:01:49 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <fcntl.h>
 # include <stdlib.h>
 #include <limits.h>
+
+#include "../minilibx-linux/mlx.h"
 
 /*--- Define your structs here ---*/
 typedef struct s_map
@@ -45,15 +47,18 @@ typedef struct s_map
 	int parsing_step; // Indicateur de l'étape de parsing en cours
 	int nombre_player; // Nombre de joueurs trouvés dans la carte
 } t_map;
-/*
+
 typedef struct s_player
 {
-    double x;           // Position X
-    double y;           // Position Y
-    double plane_x;     // Plan de la caméra (pour le FOV)
+    double x;
+    double y;
+    double dir_x;
+    double dir_y;
+    double plane_x;
     double plane_y;
 } t_player;
 
+/*
 typedef struct s_mlx // je sais pas encore que ca fait tout ca
 {
     void *mlx_ptr;
@@ -78,10 +83,13 @@ typedef struct s_texture
 typedef struct s_cub
 {
     t_map map;
-    /*t_player player;
-    t_mlx mlx;
+    t_player player;
+    /*t_mlx mlx;
     t_texture textures[4]; // NO SO WE EA*/
 } t_cub;
+
+/*--- display ---*/
+int		start_game();
 
 /*--- parsing.c ---*/
 int		parsing(char *map, t_cub *cub);
@@ -100,6 +108,7 @@ void	free_textures(t_cub *cub);
 void	free_texture_exit(t_cub *cub, char *message);
 void	free_map(t_cub *cub);
 void	free_all(t_cub *cub);
+void	free_all_exit(t_cub *cub, char *message);
 
 /*--- utils_lib.c ---*/
 size_t	ft_strlen(const char *s);
@@ -110,5 +119,9 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*get_next_line(int fd);
 int		ft_atoi(const char *str);
 char	**ft_realloc_matrix(char **old, int old_size, int new_size);
+
+/*--- init.c ---*/
+void	init_cub(t_cub *cub);
+void	init_player(t_cub *cub, char direction);
 
 #endif

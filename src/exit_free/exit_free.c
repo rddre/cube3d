@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 22:44:24 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/25 00:09:50 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/11/25 01:53:42 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,11 @@ void free_all(t_cub *cub)
 void free_texture_exit(t_cub *cub, char *message)
 {
 	free_textures(cub);
+	exit_error(message, 1);
+}
+
+void free_all_exit(t_cub *cub, char *message)
+{
+	free_all(cub);
 	exit_error(message, 1);
 }

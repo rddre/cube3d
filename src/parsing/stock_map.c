@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 02:18:07 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/24 22:00:57 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/11/25 01:54:15 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ int stock_map(char *line, t_cub *cub)
             line[i] = ' ';
         if (line[i] != ' ' && line[i] != '1' && line[i] != '0' && line[i] != 'N' && line[i] != 'S' && line[i] != 'E' && line[i] != 'W')
         {
-            write(1, "wrong caractere in map\n", 23);
-            return (-1);
+            free_all_exit(cub, "Wrong character in map");
         }
         if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
         {

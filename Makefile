@@ -6,24 +6,28 @@
 #    By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/15 20:59:12 by asaracut          #+#    #+#              #
-#    Updated: 2025/11/24 21:57:53 by asaracut         ###   ########.fr        #
+#    Updated: 2025/11/25 03:45:15 by asaracut         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program configuration
 NAME		= cube3d
-SRCS		= src/main.c\
+SRCS		= src/main.c src/utils/init.c\
 			  src/parsing/parsing.c src/parsing/parsing_outil.c\
 			  src/parsing/stock_info.c src/parsing/stock_map.c\
 			  src/parsing/stock_texture.c src/parsing/stock_color.c\
 			  src/parsing/parse_map.c\
+			  src/display/window.c\
 			  src/exit_free/error_exit.c src/exit_free/exit_free.c\
 			  src/utils/utils_lib.c src/utils/utils_lib2.c\
 			  src/utils/get_next_line.c
 OBJS		= $(SRCS:src/%.c=.obj/%.o)
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g3
-INCLUDES	= -Iinclude
+INCLUDES	= -Iinclude -Iminilibx-linux
+MLX_DIR		= minilibx-linux
+MLX_LIB		= $(MLX_DIR)/libmlx.a
+MLX_FLAGS	= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
 # Colors and emojis for pretty output
 GREEN		= \033[0;32m
@@ -52,9 +56,14 @@ all: header
 		$(MAKE) --no-print-directory $(NAME); \
 	fi
 
-$(NAME): $(OBJS)
+$(MLX_LIB):
+	@echo "$(BLUE)🧱 Building MiniLibX...$(RESET)"
+	@$(MAKE) -C $(MLX_DIR) > /dev/null
+	@echo "$(BLUE)✅ MiniLibX built$(RESET)"
+
+$(NAME): $(MLX_LIB) $(OBJS)
 	@echo "$(GREEN)🔗 Linking executable $(NAME)...$(RESET)"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME)
 	@echo "$(GREEN)$(BOLD)"
 	@echo "╔══════════════════════════════════════════════════════════════╗"
 	@echo "║                   ✅ COMPILATION SUCCESS! ✅                 ║"
@@ -87,10 +96,14 @@ clean:
 	@echo "$(RED)🧹 Cleaning object files...$(RESET)"
 	@rm -rf .obj
 	@echo "$(RED)✨ Object files cleaned!$(RESET)"
+	@echo "$(RED)🧹 Cleaning MiniLibX objects...$(RESET)"
+	@$(MAKE) -C $(MLX_DIR) clean > /dev/null || true
 
 fclean: clean
 	@echo "$(RED)🗑️  Removing executable $(NAME)...$(RESET)"
 	@rm -f $(NAME)
+	@echo "$(RED)🧨 Removing MiniLibX library...$(RESET)"
+	@rm -f $(MLX_LIB)
 	@echo "$(RED)💥 Full clean completed!$(RESET)"
 
 re: fclean all
