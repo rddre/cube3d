@@ -12,11 +12,11 @@
 
 #include "../../include/cube.h"
 
-int verifi_line(char *line, t_cub *cub)
+int	verifi_line(char *line, t_cub *cub)
 {
 	if (cub->map.parsing_step < 6 && empty_line(line))
 		return (0);
-	else if (cub->map.parsing_step == 6) 
+	else if (cub->map.parsing_step == 6)
 	{
 		if (!empty_line(line))
 			cub->map.parsing_step++;
@@ -33,11 +33,12 @@ int verifi_line(char *line, t_cub *cub)
 	return (0);
 }
 
-int read_map(int fd, t_cub *cub)
+int	read_map(int fd, t_cub *cub)
 {
-	char *line;
+	char	*line;
 
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		if (verifi_line(line, cub) != 0)
 		{
@@ -45,39 +46,36 @@ int read_map(int fd, t_cub *cub)
 			return (-1);
 		}
 		free(line);
+		line = get_next_line(fd);
 	}
 	return (0);
 }
 
-int parsing(char *map, t_cub *cub)
+int	parsing(char *map, t_cub *cub)
 {
-	int fd;
+	int	fd;
 
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
-		exit_error("Could not open map file", 1); // a rajouter free si besoin
-
+		exit_error("Could not open map file", 1);
 	if (read_map(fd, cub) != 0)
 		exit_error("Could not read map file", 1);
-
 	close(fd);
-	
 	parse_map(cub);
-	
 	write(1, "\n✅ Parsing successful ✅\n", 29);
 	return (0);
 }
 
 /*
-int ligne = 1;
-int verifi_line(char *line, t_cub *cub)
+int	ligne = 1;
+int	verifi_line(char *line, t_cub *cub)
 {
 	if (cub->map.parsing_step < 6 && empty_line(line))
 	{
 		printf("ligne %d vide\n", ligne++);
 		return (0);
 	}
-	else if (cub->map.parsing_step == 6) 
+	else if (cub->map.parsing_step == 6)
 	{
 		if (!empty_line(line))
 			cub->map.parsing_step++;
@@ -87,24 +85,25 @@ int verifi_line(char *line, t_cub *cub)
 			return (0);
 		}
 	}
-
 	if (cub->map.parsing_step < 6)
 	{
-		printf("ligne %d parsing map etape %d: %s", ligne++, cub->map.parsing_step, line);
+		printf("ligne %d parsing map etape %d: %s", ligne++,
+			cub->map.parsing_step, line);
 		stock_info(line, cub);
 		cub->map.parsing_step++;
 	}
 	else
 	{
-		printf("ligne %d parsing map etape %d: %s", ligne++, cub->map.parsing_step, line);
+		printf("ligne %d parsing map etape %d: %s", ligne++,
+			cub->map.parsing_step, line);
 		stock_map(line, cub);
 	}
 	return (0);
 }
 
-int read_map(int fd, t_cub *cub)
+int	read_map(int fd, t_cub *cub)
 {
-	char *line;
+	char	*line;
 
 	while ((line = get_next_line(fd)) != NULL)
 	{
@@ -118,21 +117,17 @@ int read_map(int fd, t_cub *cub)
 	return (0);
 }
 
-int parsing(char *map, t_cub *cub)
+int	parsing(char *map, t_cub *cub)
 {
-	int fd;
+	int	fd;
 
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
 		exit_error("Could not open map file", 1); // a rajouter free si besoin
-
 	if (read_map(fd, cub) != 0)
 		exit_error("Could not read map file", 1);
-
 	close(fd);
-	
 	parse_map(cub);
-	
 	write(1, "Parsing successful\n", 20);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 20:58:16 by asaracut          #+#    #+#             */
-/*   Updated: 2025/12/07 03:31:03 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/12/07 03:48:13 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,42 +20,34 @@ int	check_extension(char *map_name)
 	len = ft_strlen(map_name);
 	if (len < 4)
 		return (0);
-	
 	ext = map_name + len - 4;
 	if (ft_strcmp(ext, ".cub") != 0)
 		return (0);
-
 	return (1);
 }
 
 int	main(int ac, char **av)
 {
-	t_cub cub;
+	t_cub	cub;
 
 	if (ac != 2)
 		exit_error("Invalid number of arguments", 1);
 	if (!check_extension(av[1]))
 		exit_error("Map file must be a *.cub", 1);
-
-	init_cub(&cub);
-
-	if (parsing(av[1], &cub)) // parsing renvoie jamais d'erreur
-		return (write(2, "Parsing failed\n", 15), 1); // a effacer
-
+	ft_memset(&cub, 0, sizeof(t_cub));
+	if (parsing(av[1], &cub))
+		return (write(2, "Parsing failed\n", 15), 1);
 	init_player(&cub, cub.map.player_dir);
-
 	if (start_game(&cub) != 0)
 		write(2, "Failed to start game\n", 21);
-
 	free_all(&cub);
-
 	return (0);
 }
 
 /*                                 pour afficher les infos de la map
-void print_map(t_cub *cub)
+void	print_map(t_cub *cub)
 {
-	int i;
+	int	i;
 
 	printf("Map:\n");
 	for (i = 0; i < cub->map.height_map; i++)
@@ -63,7 +55,7 @@ void print_map(t_cub *cub)
 		printf("%s\n", cub->map.map[i]);
 	}
 }
-void print_info(t_cub *cub)
+void	print_info(t_cub *cub)
 {
 	printf("NO Texture: %s\n", cub->map.no_texture);
 	printf("SO Texture: %s\n", cub->map.so_texture);
@@ -75,7 +67,6 @@ void print_info(t_cub *cub)
 	printf("Map Height: %d\n", cub->map.height_map);
 	printf("Player Position: (%d, %d)\n", cub->map.player_x, cub->map.player_y);
 	printf("Player Direction: %c\n", cub->map.player_dir);
-
 	//player info
 	printf("\nPlayer Info:\n");
 	printf("Position: (%f, %f)\n", cub->player.x, cub->player.y);

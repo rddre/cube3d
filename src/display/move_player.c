@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 01:13:31 by asaracut          #+#    #+#             */
-/*   Updated: 2025/12/07 02:03:35 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/12/07 03:53:28 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,32 @@
 
 void	move_player_w(t_cub *cub)
 {
-	cub->move.nx = cub->player.x + cub->player.dir_x * speed;
-	cub->move.ny = cub->player.y + cub->player.dir_y * speed;
+	cub->move.nx = cub->player.x + cub->player.dir_x * SPEED;
+	cub->move.ny = cub->player.y + cub->player.dir_y * SPEED;
 	cub->move.mx = (int)cub->move.nx;
 	cub->move.my = (int)cub->move.ny;
 }
 
 void	move_player_s(t_cub *cub)
 {
-	cub->move.nx = cub->player.x - cub->player.dir_x * speed;
-	cub->move.ny = cub->player.y - cub->player.dir_y * speed;
+	cub->move.nx = cub->player.x - cub->player.dir_x * SPEED;
+	cub->move.ny = cub->player.y - cub->player.dir_y * SPEED;
 	cub->move.mx = (int)cub->move.nx;
 	cub->move.my = (int)cub->move.ny;
 }
 
 void	move_player_a(t_cub *cub)
 {
-	cub->move.nx += cub->player.dir_y * speed;
-	cub->move.ny += -cub->player.dir_x * speed;
+	cub->move.nx += cub->player.dir_y * SPEED;
+	cub->move.ny += -cub->player.dir_x * SPEED;
 	cub->move.mx = (int)cub->move.nx;
 	cub->move.my = (int)cub->move.ny;
 }
 
 void	move_player_d(t_cub *cub)
 {
-	cub->move.nx += -cub->player.dir_y * speed;
-	cub->move.ny += cub->player.dir_x * speed;
+	cub->move.nx += -cub->player.dir_y * SPEED;
+	cub->move.ny += cub->player.dir_x * SPEED;
 	cub->move.mx = (int)cub->move.nx;
 	cub->move.my = (int)cub->move.ny;
 }

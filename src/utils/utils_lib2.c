@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 23:29:29 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/24 00:14:03 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/12/07 03:35:39 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	ft_atoi(const char *str)
 
 char	**ft_realloc_matrix(char **old, int old_size, int new_size)
 {
-	char **new;
+	char	**new;
+	int		i;
 
-	int   i;
 	new = malloc(sizeof(char *) * (new_size + 1));
 	if (!new)
 		return (NULL);

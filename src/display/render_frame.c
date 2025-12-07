@@ -6,19 +6,12 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 23:43:17 by asaracut          #+#    #+#             */
-/*   Updated: 2025/12/07 03:25:41 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/12/07 04:27:31 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cube.h"
 #include <math.h>
-
-// Step 1: declare raycasting variables
-static void rf_declare_vars(int *img_w, int *img_h)
-{
-    *img_w = 800;
-    *img_h = 600;
-}
 
 // Step 2: loop columns
 static void rf_loop_columns(t_cub *cub, int img_w, int img_h, void *mlx, void *win);

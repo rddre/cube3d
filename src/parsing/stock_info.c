@@ -6,13 +6,13 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 02:17:47 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/23 23:41:33 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/12/07 03:55:43 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cube.h"
 
-void stock_info_loop(char **line, t_cub *cub, char *direction)
+void	stock_info_loop(char **line, t_cub *cub, char *direction)
 {
 	skip_spaces(line);
 	if (ft_strncmp(*line, direction, 3) != 0)
@@ -24,7 +24,8 @@ void stock_info_loop(char **line, t_cub *cub, char *direction)
 	skip_spaces(line);
 	stock_texture(*line, cub);
 }
-void stock_info_loop_color(char **line, t_cub *cub, char *color_type)
+
+void	stock_info_loop_color(char **line, t_cub *cub, char *color_type)
 {
 	skip_spaces(line);
 	if (ft_strncmp(*line, color_type, 2) != 0)
@@ -36,7 +37,7 @@ void stock_info_loop_color(char **line, t_cub *cub, char *color_type)
 	stock_color(*line, cub);
 }
 
-int stock_info(char *line, t_cub *cub)
+int	stock_info(char *line, t_cub *cub)
 {
 	if (cub->map.parsing_step == 0)
 		stock_info_loop(&line, cub, "NO ");
