@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 20:58:16 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/25 03:47:35 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/12/07 03:31:03 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int ac, char **av)
 
 	init_player(&cub, cub.map.player_dir);
 
-	if (start_game() != 0)
+	if (start_game(&cub) != 0)
 		write(2, "Failed to start game\n", 21);
 
 	free_all(&cub);
@@ -52,7 +52,7 @@ int	main(int ac, char **av)
 	return (0);
 }
 
-/*
+/*                                 pour afficher les infos de la map
 void print_map(t_cub *cub)
 {
 	int i;

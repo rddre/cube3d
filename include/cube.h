@@ -6,7 +6,7 @@
 /*   By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 20:58:19 by asaracut          #+#    #+#             */
-/*   Updated: 2025/11/25 04:01:49 by asaracut         ###   ########.fr       */
+/*   Updated: 2025/12/07 02:54:09 by asaracut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,13 @@
 # include <fcntl.h>
 # include <stdlib.h>
 #include <limits.h>
+#include <math.h>
 
 #include "../minilibx-linux/mlx.h"
+
+# define speed 0.1
+# define ROT_SPEED 0.05
+# define M_PI 3.14159265358979323846
 
 /*--- Define your structs here ---*/
 typedef struct s_map
@@ -58,38 +63,65 @@ typedef struct s_player
     double plane_y;
 } t_player;
 
-/*
-typedef struct s_mlx // je sais pas encore que ca fait tout ca
+typedef struct s_img
 {
-    void *mlx_ptr;
-    void *win_ptr;
-    void *img_ptr;
-    char *addr;        // adresse de l’image
-    int bpp;           // bits par pixel
-    int line_length;
-    int endian;
-    int width;
-    int height;
-} t_mlx;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}   t_img;
 
-typedef struct s_texture
+typedef struct s_move
 {
-    void *img;
-    int *data;        // tableau des pixels
-    int width;
-    int height;
-} t_texture;*/
+    double nx;
+    double ny;
+    int    mx;
+    int    my;
+} t_move;
+
+typedef struct s_tex
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+} t_tex;
 
 typedef struct s_cub
 {
-    t_map map;
-    t_player player;
-    /*t_mlx mlx;
-    t_texture textures[4]; // NO SO WE EA*/
+    t_map		map;
+    t_player	player;
+	t_img		img;
+    t_move		move;
+	// textures loaded from XPM
+	t_tex		tex_no;
+	t_tex		tex_so;
+	t_tex		tex_we;
+	t_tex		tex_ea;
 } t_cub;
 
 /*--- display ---*/
-int		start_game();
+int		start_game(t_cub *cub);
+int		handle_key(int key, t_cub *cub);
+int		handle_exit(t_cub *cub);
+void	render_frame(t_cub *cub, void *mlx, void *win);
+void	put_pixel(t_img *img, int x, int y, int color);
+int		get_tex_color(t_tex *tex, int tex_x, int tex_y);
+void	load_textures(t_cub *cub);
+
+/*--- movement ---*/
+void	rotation(int direction, t_cub *cub);
+void	move_player_w(t_cub *cub);
+void	move_player_s(t_cub *cub);
+void	move_player_a(t_cub *cub);
+void	move_player_d(t_cub *cub);
+void	move_valid_or_no(t_cub *cub);
 
 /*--- parsing.c ---*/
 int		parsing(char *map, t_cub *cub);

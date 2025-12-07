@@ -6,7 +6,7 @@
 #    By: asaracut <asaracut@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/15 20:59:12 by asaracut          #+#    #+#              #
-#    Updated: 2025/11/25 03:45:15 by asaracut         ###   ########.fr        #
+#    Updated: 2025/12/07 01:45:36 by asaracut         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ SRCS		= src/main.c src/utils/init.c\
 			  src/parsing/stock_info.c src/parsing/stock_map.c\
 			  src/parsing/stock_texture.c src/parsing/stock_color.c\
 			  src/parsing/parse_map.c\
-			  src/display/window.c\
+			  src/display/window.c src/display/render_frame.c\
+			  src/display/render_utils.c\
+			  src/display/move_player.c src/display/rotate_player.c\
 			  src/exit_free/error_exit.c src/exit_free/exit_free.c\
 			  src/utils/utils_lib.c src/utils/utils_lib2.c\
 			  src/utils/get_next_line.c
